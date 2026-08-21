@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Mini Mania</title>
+<meta name="theme-color" content="#7c3aed">
+<meta name="description" content="Mini Mania — un pack de 6 mini-jeux amusants, 100% hors-ligne.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mini Mania">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===================== TOPBAR ===================== -->
+<div id="topbar">
+  <button class="icon-btn" id="btn-settings" aria-label="Paramètres">⚙️</button>
+  <div id="coin-counter">
+    <span class="coin-icon">⚡</span>
+    <span id="coin-amount">0</span>
+  </div>
+  <button id="btn-noads">🚫 Supprimer les pubs</button>
+</div>
+
+<!-- ===================== HOME SCREEN ===================== -->
+<main id="screen-home" class="screen active">
+  <div id="logo-wrap">
+    <h1 id="logo">MINI<span>MANIA</span></h1>
+    <p id="tagline">6 mini-jeux, 1 seule app, 0 connexion !</p>
+  </div>
+
+  <div id="game-grid">
+
+    <button class="game-card" data-game="numbers" style="--c1:#00c2ff;--c2:#0072ff;">
+      <span class="badge badge-new">NOUVEAU !</span>
+      <div class="card-art">🔢</div>
+      <div class="card-body">
+        <h3>Nombres<br>Correspondants</h3>
+        <span class="play-btn">JOUER</span>
+      </div>
+    </button>
+
+    <button class="game-card" data-game="colorblocks" style="--c1:#3a2b5f;--c2:#1a1030;">
+      <div class="card-art">🧱</div>
+      <div class="card-body">
+        <h3>Color Blocks</h3>
+        <span class="play-btn">JOUER</span>
+      </div>
+    </button>
+
+    <button class="game-card" data-game="whois" style="--c1:#a855f7;--c2:#6d28d9;">
+      <span class="badge badge-new">NOUVEAU !</span>
+      <div class="card-art">🕵️</div>
+      <div class="card-body">
+        <h3>Qui est-ce ?</h3>
+        <span class="play-btn">JOUER</span>
+      </div>
+    </button>
+
+    <button class="game-card" data-game="fruitmerge" style="--c1:#ffe08a;--c2:#ffb84d;">
+      <div class="card-art">🍉</div>
+      <div class="card-body">
+        <h3>Fusion de Fruits</h3>
+        <span class="play-btn">JOUER</span>
+      </div>
+    </button>
+
+    <button class="game-card" data-game="escape" style="--c1:#7a4a2b;--c2:#442712;">
+      <div class="card-art">🚪</div>
+      <div class="card-body">
+        <h3>Escape</h3>
+        <span class="play-btn">JOUER</span>
+      </div>
+    </button>
+
+    <button class="game-card" data-game="marblerace" style="--c1:#ff2fb0;--c2:#2b1055;">
+      <div class="card-art">⚪</div>
+      <div class="card-body">
+        <h3>Course de Billes</h3>
+        <span class="play-btn">JOUER</span>
+      </div>
+    </button>
+
+  </div>
+
+  <button id="install-btn" class="hidden">⬇️ INSTALLER L'APPLICATION</button>
+  <p id="install-hint" class="hidden">Astuce : si le bouton n'apparaît pas, ouvre le menu de ton navigateur (⋮) puis choisis « Ajouter à l'écran d'accueil ».</p>
+</main>
+
+<!-- ===================== GAME SCREEN (shared shell) ===================== -->
+<section id="screen-game" class="screen">
+  <div id="game-topbar">
+    <button id="btn-back" class="icon-btn">←</button>
+    <h2 id="game-title">Jeu</h2>
+    <div id="game-score">Score : <span id="game-score-val">0</span></div>
+  </div>
+  <div id="game-container"></div>
+</section>
+
+<!-- ===================== END OVERLAY ===================== -->
+<div id="end-overlay" class="overlay hidden">
+  <div class="overlay-card">
+    <h2 id="end-title">Bravo !</h2>
+    <p id="end-message"></p>
+    <div class="end-stats">
+      <div>Score : <b id="end-score">0</b></div>
+      <div>Meilleur score : <b id="end-best">0</b></div>
+      <div>Pièces gagnées : <b id="end-coins">+0</b></div>
+    </div>
+    <div class="overlay-buttons">
+      <button id="btn-replay" class="btn-primary">🔁 Rejouer</button>
+      <button id="btn-menu" class="btn-secondary">🏠 Menu</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SETTINGS MODAL ===================== -->
+<div id="settings-overlay" class="overlay hidden">
+  <div class="overlay-card">
+    <h2>Paramètres</h2>
+    <div class="settings-row">
+      <span>🔊 Sons</span>
+      <label class="switch"><input type="checkbox" id="toggle-sound" checked><span class="slider"></span></label>
+    </div>
+    <div class="settings-row">
+      <span>📳 Vibrations</span>
+      <label class="switch"><input type="checkbox" id="toggle-vibrate" checked><span class="slider"></span></label>
+    </div>
+    <div class="settings-row">
+      <span>🗑️ Réinitialiser la progression</span>
+      <button id="btn-reset" class="btn-danger">Effacer</button>
+    </div>
+    <button id="btn-close-settings" class="btn-primary">Fermer</button>
+  </div>
+</div>
+
+<!-- ===================== NO-ADS MODAL ===================== -->
+<div id="noads-overlay" class="overlay hidden">
+  <div class="overlay-card">
+    <h2>🚫 Supprimer les publicités</h2>
+    <p>Ce jeu ne contient aucune publicité ni aucun paiement réel — ce bouton est purement décoratif pour le moment. Amuse-toi bien, c'est déjà tout propre ! ✨</p>
+    <button id="btn-close-noads" class="btn-primary">Compris</button>
+  </div>
+</div>
+
+<script src="games/numbers.js"></script>
+<script src="games/colorblocks.js"></script>
+<script src="games/whois.js"></script>
+<script src="games/fruitmerge.js"></script>
+<script src="games/escape.js"></script>
+<script src="games/marblerace.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
